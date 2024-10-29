@@ -3,12 +3,11 @@ import tailwindcssRadixColors from 'tailwindcss-radix-colors'
 
 export default {
   darkMode: ['class'],
-  // darkMode: ['class', 'media'],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       container: {
-        center: 'true',
+        center: true,
         padding: '1rem',
       },
       colors: {

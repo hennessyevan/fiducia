@@ -5,6 +5,7 @@ import { db } from '../db'
 import schema from '../db/schema'
 import { Button } from '@/components/ui/button'
 import { eq } from 'drizzle-orm'
+import { Vase } from '@/components/Vase'
 
 export function App() {
   const queryClient = useQueryClient()
@@ -16,8 +17,6 @@ export function App() {
       return data
     },
   })
-
-  db.select().from(schema.issues).all().then(console.log)
 
   const { mutate: addIssue } = useMutation({
     mutationFn: async (text: string) => {
@@ -39,8 +38,8 @@ export function App() {
 
   return (
     <Layout>
-      <div className="container py-12 flex flex-col gap-2 max-w-96">
-        <ul className="flex flex-col gap-2">
+      <div className="container py-12 flex flex-col gap-2 ">
+        {/* <ul className="flex flex-col gap-2">
           {issues?.map((issue) => (
             <li
               className="text-primary-dim py-3 px-4 border border-primary-dim rounded flex justify-between items-center"
@@ -67,7 +66,9 @@ export function App() {
         >
           <PlusIcon />
           Add Issue
-        </Button>
+        </Button> */}
+
+        <Vase />
       </div>
     </Layout>
   )

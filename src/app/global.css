@@ -13,5 +13,8 @@
     -webkit-touch-callout: none;
     user-select: none;
     cursor: default;
+
+    background: linear-gradient(165deg, #ff8082, #65ceff);
+    height: 100%;
   }
 }
