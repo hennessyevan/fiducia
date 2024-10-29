@@ -34,11 +34,11 @@ export default defineConfig({
           },
           maskable: {
             padding: 0,
-            sizes: [512, 1024],
+            sizes: [180, 512, 1024],
           },
           apple: {
             padding: 0,
-            sizes: [1024],
+            sizes: [180, 512, 1024],
           },
         },
         image: 'public/logo.png',

@@ -9,7 +9,11 @@
     "strict": true /* Enable all strict type-checking options. */,
     "jsx": "react-jsxdev",
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "types": ["vite/client", "vite-plugin-pwa/react"]
+    "types": ["vite/client", "vite-plugin-pwa/react"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
 
   "include": ["src/**/*.ts", "src/**/*.tsx", "./manifest.ts"]

@@ -3,7 +3,11 @@ type SQLFunction = <T extends Record<string, unknown>[]>(
   ...params: unknown[]
 ) => Promise<T>
 
-const migrations = import.meta.glob('./*.sql', { as: 'raw', eager: true })
+const migrations = import.meta.glob('./*.sql', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+})
 
 export async function migrate(sql: SQLFunction) {
   for (const [, sqlCommand] of Object.entries(migrations)) {

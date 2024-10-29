@@ -1,8 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import manifest from '../../manifest'
+import { PlusIcon, TrashIcon } from 'lucide-react'
 import { Layout } from '../components/Layout'
 import { db } from '../db'
 import schema from '../db/schema'
+import { Button } from '@/components/ui/button'
+import { eq } from 'drizzle-orm'
 
 export function App() {
   const queryClient = useQueryClient()
@@ -26,17 +28,47 @@ export function App() {
     },
   })
 
+  const { mutate: deleteIssue } = useMutation({
+    mutationFn: async (id: string) => {
+      await db.delete(schema.issues).where(eq(schema.issues.id, id))
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['issues'] })
+    },
+  })
+
   return (
     <Layout>
-      <span className="container">Hello {manifest.name}</span>
-      <ul>{issues?.map((issue) => <li key={issue.id}>{issue.text}</li>)}</ul>
-      <button
-        onClick={() => {
-          addIssue(`Issue: ${issues.length + 1}`)
-        }}
-      >
-        Add Issue
-      </button>
+      <div className="container py-12 flex flex-col gap-2 max-w-96">
+        <ul className="flex flex-col gap-2">
+          {issues?.map((issue) => (
+            <li
+              className="text-primary-dim py-3 px-4 border border-primary-dim rounded flex justify-between items-center"
+              key={issue.id}
+            >
+              {issue.text}
+              <Button
+                size="icon"
+                variant="destructive"
+                onClick={() => {
+                  deleteIssue(issue.id)
+                }}
+              >
+                <TrashIcon />
+              </Button>
+            </li>
+          ))}
+        </ul>
+        <Button
+          className="ml-auto"
+          onClick={() => {
+            addIssue(`Issue: ${issues.length + 1}`)
+          }}
+        >
+          <PlusIcon />
+          Add Issue
+        </Button>
+      </div>
     </Layout>
   )
 }

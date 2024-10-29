@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  user-select: none;
-  cursor: default;
+@layer base {
+  :root {
+    --radius: 0.6rem;
+
+    @apply bg-primary-app text-gray-normal;
+
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+    cursor: default;
+  }
 }
