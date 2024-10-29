@@ -1,0 +1,67 @@
+/// <reference types='vitest' />
+import react from '@vitejs/plugin-react'
+import tsConfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vite'
+import crossOriginIsolation from 'vite-plugin-cross-origin-isolation'
+import mkcert from 'vite-plugin-mkcert'
+import { VitePWA } from 'vite-plugin-pwa'
+import manifest from './manifest'
+
+export default defineConfig({
+  root: __dirname,
+  assetsInclude: ['**/*.sqlite'],
+
+  server: {
+    port: 4200,
+    host: true,
+    headers: {
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+    },
+  },
+
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      manifest,
+      pwaAssets: { preset: 'minimal-2023' },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm}'],
+      },
+    }),
+    tsConfigPaths(),
+    mkcert(),
+    crossOriginIsolation(),
+  ],
+
+  optimizeDeps: {
+    exclude: ['sqlocal'],
+  },
+
+  // Uncomment this if you are using workers.
+  worker: {
+    plugins: () => [tsConfigPaths()],
+  },
+
+  build: {
+    outDir: './dist',
+    reportCompressedSize: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
+
+  // test: {
+  //   globals: true,
+  //   environment: 'jsdom',
+  //   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+
+  //   reporters: ['default'],
+  //   coverage: {
+  //     reportsDirectory: './coverage',
+  //     provider: 'v8',
+  //   },
+  // },
+})
