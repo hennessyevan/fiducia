@@ -26,7 +26,26 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest,
-      pwaAssets: { preset: 'minimal-2023' },
+      pwaAssets: {
+        preset: {
+          transparent: {
+            sizes: [64, 192, 512, 1024],
+            favicons: [[48, 'favicon.ico']],
+          },
+          maskable: {
+            padding: 0,
+            sizes: [512, 1024],
+          },
+          apple: {
+            padding: 0,
+            sizes: [1024],
+          },
+        },
+        image: 'public/logo.png',
+        overrideManifestIcons: true,
+      },
+      selfDestroying: true,
+      devOptions: { enabled: true },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm}'],
       },
