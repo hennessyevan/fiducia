@@ -1,5 +1,5 @@
 import { Paper } from '@/components/Paper'
-import { Stage } from '@react-three/drei'
+import { Loader, Stage } from '@react-three/drei'
 import { extend, useLoader } from '@react-three/fiber'
 import { motion, MotionCanvas } from 'framer-motion-3d'
 import { useMemo } from 'react'
@@ -92,6 +92,7 @@ export function Vase() {
           <Paper />
         </Stage>
       </MotionCanvas>
+      <Loader />
     </div>
   )
 }

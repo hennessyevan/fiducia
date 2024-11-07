@@ -11,22 +11,33 @@ const paperVariants = {
     z: 0,
     rotateZ: 0.9,
     rotateX: -Math.PI / 2,
-    scale: 0.25,
+    scale: 0.3,
+    transition: {
+      rotateX: { duration: 0.1 },
+    },
   },
   active: { x: 0, y: -2, z: 0, rotateX: -0.2, rotateZ: 0, scale: 0.8 },
-  hover: { scale: 0.27, y: -2.72 },
+  hover: { scale: 0.33, y: -2.72 },
 }
 
 function PaperInput({ active = false }: { active?: boolean }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const [focused, setFocused] = useState(true)
+  const [focused, setFocused] = useState(false)
   const [text, setText] = useState('')
+
+  useEffect(() => {
+    if (active) {
+      setFocused(true)
+    } else {
+      setFocused(false)
+    }
+  }, [active])
 
   useEffect(() => {
     if (!textareaRef.current) {
       const textarea = document.createElement('textarea')
       textarea.style.position = 'absolute'
-      // textarea.style.opacity = '0'
+      textarea.style.opacity = '0'
       document.body.appendChild(textarea)
       textareaRef.current = textarea
     }
@@ -37,18 +48,24 @@ function PaperInput({ active = false }: { active?: boolean }) {
   }, [focused, textareaRef])
 
   useEffect(() => {
-    textareaRef.current?.addEventListener('blur', () => {
-      if (focused) {
-        textareaRef.current?.focus()
-      }
-    })
-
     if (focused) {
       textareaRef.current?.focus()
     } else {
       textareaRef.current?.blur()
     }
-  }, [focused, document.activeElement])
+
+    const focus = () => {
+      if (focused) {
+        textareaRef.current?.focus()
+      }
+    }
+
+    textareaRef.current?.addEventListener('blur', focus)
+
+    return () => {
+      textareaRef.current?.removeEventListener('blur', focus)
+    }
+  }, [focused])
 
   return (
     <Text
@@ -91,7 +108,7 @@ export function Paper() {
       variants={paperVariants}
       initial="idle"
       animate={active ? 'active' : 'idle'}
-      whileHover={active ? undefined : 'hover'}
+      whileHover={active ? 'active' : 'hover'}
       onClick={() => {
         setActive(true)
       }}
