@@ -2,6 +2,7 @@ import { useCloseMenuOnEscape } from '@/hooks/useCloseOnEscape'
 import { RoundedBox, Text, useCursor } from '@react-three/drei'
 import { motion } from 'framer-motion-3d'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useAnimate, useAnimationFrame } from 'framer-motion'
 import * as THREE from 'three'
 
 const paperVariants = {
@@ -22,8 +23,17 @@ const paperVariants = {
 
 function PaperInput({ active = false }: { active?: boolean }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const [focused, setFocused] = useState(false)
   const [text, setText] = useState('')
+  const [showCaret, setShowCaret] = useState(false)
+  const [focused, setFocused] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCaret((show) => !show)
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     if (active) {
@@ -82,7 +92,7 @@ function PaperInput({ active = false }: { active?: boolean }) {
       onClick={() => setFocused(true)}
     >
       {text}
-      {focused ? '|' : null}
+      {focused && showCaret ? '|' : ''}
     </Text>
   )
 }
