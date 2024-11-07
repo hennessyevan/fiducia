@@ -1,12 +1,6 @@
 import { Paper } from '@/components/Paper'
-import {
-  Backdrop,
-  BakeShadows,
-  Environment,
-  SoftShadows,
-  Stage,
-} from '@react-three/drei'
-import { Canvas, extend, useLoader } from '@react-three/fiber'
+import { Stage } from '@react-three/drei'
+import { extend, useLoader } from '@react-three/fiber'
 import { motion, MotionCanvas } from 'framer-motion-3d'
 import { useMemo } from 'react'
 import * as THREE from 'three'
@@ -36,7 +30,7 @@ function VaseObj() {
       variants={vaseVariants}
       initial="initial"
       animate="animate"
-      whileHover="hover"
+      // whileHover="hover"
       castShadow
     >
       <motion.meshPhysicalMaterial
@@ -85,32 +79,18 @@ export function Vase() {
         shadows
         className="size-full mx-auto md:max-w-[500px] md:ml-0"
       >
-        {/* <Backdrop floor={1} receiveShadow> */}
-        {/* <Environment
-            preset="warehouse"
-            environmentIntensity={0.2}
-            environmentRotation={[0, Math.PI / 2, 0]}
-          /> */}
-        {/* <ambientLight
-            intensity={5}
-            color={new THREE.Color(0xff8082)}
-            position={[0, 2.7, 1]}
-          />
-          <ambientLight
-            intensity={5}
-            color={new THREE.Color(0x366491)}
-            position={[0, 2.7, 1]}
-          /> */}
         <Stage
-          shadows="contact"
-          adjustCamera
-          intensity={0.5}
+          preset="soft"
+          shadows={{
+            type: 'contact',
+            opacity: 0.4,
+            color: '#6b092b',
+          }}
           environment="city"
         >
           <VaseObj />
           <Paper />
         </Stage>
-        {/* </Backdrop> */}
       </MotionCanvas>
     </div>
   )

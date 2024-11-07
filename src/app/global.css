@@ -13,6 +13,9 @@
     -webkit-touch-callout: none;
     user-select: none;
     cursor: default;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
 
     background: linear-gradient(
       165deg,

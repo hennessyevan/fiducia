@@ -8,6 +8,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import glsl from 'vite-plugin-glsl'
 import manifest from './manifest'
 
+const oneYearInSeconds = 60 * 60 * 24 * 365
+
 export default defineConfig({
   root: __dirname,
   assetsInclude: ['**/*.sqlite'],
@@ -18,6 +20,7 @@ export default defineConfig({
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
       'Cross-Origin-Opener-Policy': 'same-origin',
+      'Strict-Transport-Security': `max-age=${oneYearInSeconds}`,
     },
   },
 
@@ -48,7 +51,7 @@ export default defineConfig({
       },
       selfDestroying: true,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,wasm,obj}'],
       },
     }),
     tsConfigPaths(),

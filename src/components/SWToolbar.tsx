@@ -11,7 +11,7 @@ export function SWToolbar() {
   if (process.env.NODE_ENV !== 'development') return
 
   return (
-    <div className="flex items-center justify-between w-full p-4 bg-gray-800">
+    <div className="flex items-center justify-between w-full p-4 bg-gray-800 absolute bottom-4 right-4">
       <div className="flex items-center">
         <button
           onClick={() => {}}
