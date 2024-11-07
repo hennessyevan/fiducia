@@ -14,7 +14,11 @@
     user-select: none;
     cursor: default;
 
-    background: linear-gradient(165deg, #ff8082, #65ceff);
+    background: linear-gradient(
+      165deg,
+      oklch(0.76 0.17 29),
+      oklch(0.82 0.17 264)
+    );
     height: 100%;
   }
 }
