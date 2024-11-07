@@ -1,12 +1,10 @@
+import { SWToolbar } from '@/components/SWToolbar'
+import { Vase } from '@/components/Vase'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { PlusIcon, TrashIcon } from 'lucide-react'
+import { eq } from 'drizzle-orm'
 import { Layout } from '../components/Layout'
 import { db } from '../db'
 import schema from '../db/schema'
-import { Button } from '@/components/ui/button'
-import { eq } from 'drizzle-orm'
-import { Vase } from '@/components/Vase'
-import { SWToolbar } from '@/components/SWToolbar'
 
 export function App() {
   const queryClient = useQueryClient()

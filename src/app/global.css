@@ -16,6 +16,7 @@
     height: 100vh;
     max-height: 100vh;
     overflow-y: hidden;
+    overscroll-behavior-y: none;
 
     background: linear-gradient(
       165deg,
